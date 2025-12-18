@@ -20,6 +20,10 @@ const Experience1 = () => {
     setPhase("transition");
   };
 
+  const handleNextExperience = () => {
+    setPhase("transition");
+  };
+
   const handleContinue = () => {
     navigate("/experiencia-2");
   };
@@ -35,7 +39,7 @@ const Experience1 = () => {
   }
 
   if (phase === "call") {
-    return <CallInterface onHangUp={handleHangUp} />;
+    return <CallInterface onHangUp={handleHangUp} onNextExperience={handleNextExperience} />;
   }
 
   return (
