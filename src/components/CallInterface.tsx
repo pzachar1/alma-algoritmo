@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import soundFile from "../../assets/1217.mp3"; // Caminho do arquivo de áudio
+import soundFile from "../assets/1217.mp3";
 import { Phone, User, Mic, Grid3X3, Volume2, Plus, Video, UserRound } from "lucide-react";
 
 interface CallInterfaceProps {
