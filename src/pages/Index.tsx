@@ -1,11 +1,22 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Index = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Auto-redirect to Experience 1 after a brief moment
+    const timer = setTimeout(() => {
+      navigate("/experiencia-1");
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [navigate]);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="animate-pulse-soft">
+        <div className="w-2 h-2 rounded-full bg-muted-foreground" />
       </div>
     </div>
   );
