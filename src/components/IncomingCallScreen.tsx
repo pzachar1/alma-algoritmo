@@ -1,4 +1,6 @@
 import { Phone, User } from "lucide-react";
+import { useEffect, useRef } from "react";
+import vibratingSound from "@/assets/vibrating-phone.mp3";
 
 interface IncomingCallScreenProps {
   onAccept: () => void;
@@ -6,8 +8,38 @@ interface IncomingCallScreenProps {
 }
 
 const IncomingCallScreen = ({ onAccept, onDecline }: IncomingCallScreenProps) => {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    // Create and play audio
+    audioRef.current = new Audio(vibratingSound);
+    audioRef.current.loop = true;
+    audioRef.current.play().catch(console.error);
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
+  const handleAccept = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
+    onAccept();
+  };
+
+  const handleDecline = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
+    onDecline();
+  };
+
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center justify-between py-16 px-6">
+    <div className="min-h-screen bg-black flex flex-col items-center justify-between py-16 px-6 animate-vibrate">
       {/* Top section - Caller info */}
       <div className="flex flex-col items-center gap-2 animate-fade-in pt-8">
         {/* Avatar */}
@@ -36,7 +68,7 @@ const IncomingCallScreen = ({ onAccept, onDecline }: IncomingCallScreenProps) =>
         {/* Decline button */}
         <div className="flex flex-col items-center gap-2">
           <button
-            onClick={onDecline}
+            onClick={handleDecline}
             className="w-16 h-16 rounded-full bg-call-end flex items-center justify-center transition-all duration-200 hover:scale-105 hover:brightness-110 active:scale-95"
             aria-label="Recusar"
           >
@@ -50,7 +82,7 @@ const IncomingCallScreen = ({ onAccept, onDecline }: IncomingCallScreenProps) =>
         {/* Accept button */}
         <div className="flex flex-col items-center gap-2">
           <button
-            onClick={onAccept}
+            onClick={handleAccept}
             className="w-16 h-16 rounded-full bg-call-active flex items-center justify-center transition-all duration-200 hover:scale-105 hover:brightness-110 active:scale-95"
             aria-label="Aceitar"
           >
