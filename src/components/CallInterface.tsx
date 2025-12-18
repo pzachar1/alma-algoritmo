@@ -61,7 +61,7 @@ const CallInterface = ({ onHangUp }: CallInterfaceProps) => {
         </p>
 
         {/* Timer */}
-        <span className="font-mono text-lg text-zinc-400 tracking-widest mt-1">
+        <span className="text-base text-zinc-400 font-light tracking-tight mt-1">
           {formatTime(seconds)}
         </span>
       </div>
